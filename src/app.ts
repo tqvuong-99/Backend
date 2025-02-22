@@ -2,9 +2,10 @@ import express, {Request, Response, NextFunction}  from 'express';
 import categoriesRouter from './routes/v1/categories.route';
 import createError from 'http-errors';
 
-
+// -------------||INITIAL APP||----------------
 const app = express();
-
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 // -------------||BEGIN REGISTER ROUTES ||----------------
 
@@ -20,6 +21,8 @@ app.use('/api/v1',categoriesRouter);
   app.use(function(req: Request, res: Response,next: NextFunction){
     next(createError(404));
   });
+  //error handler, catch 5xx errors
+
 app.use(function (err: any, req: Request, res: Response, next: NextFunction) {
   // set locals, only providing error in development
   const statusCode = err.status || 500;

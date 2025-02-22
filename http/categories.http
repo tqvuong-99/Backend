@@ -1,0 +1,20 @@
+POST http://localhost:8080/api/v1/categories
+Content-Type: application/json
+
+{
+    "id": 3,
+    "name": "Electronics"
+}
+
+### update
+PUT http://localhost:8080/api/v1/categories/1
+Content-Type: application/json
+
+{
+    "id": 3,
+    "name": "LG"
+}
+### delete
+DELETE http://localhost:8080/api/v1/categories/2
+Content-Type: application/json
+
