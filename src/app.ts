@@ -3,6 +3,8 @@ import categoriesRouter from './routes/v1/categories.route';
 import brandsRouter from './routes/v1/brands.route';
 import productsRouter from './routes/v1/products.route';
 import customersRouter from './routes/v1/customers.route';
+import staffsRouter from './routes/v1/staffs.route';
+import ordersRouter from './routes/v1/orders.route';
 import createError from 'http-errors';
 
 // -------------||INITIAL APP||----------------
@@ -18,7 +20,9 @@ app.get('/', (req: Request, res: Response) => {
 app.use('/api/v1',categoriesRouter); // router cho categories
 app.use('/api/v1',brandsRouter);     // router cho brands
 app.use('/api/v1',productsRouter);   // router cho products
-app.use('/api/v1',customersRouter);   // router cho customers
+app.use('/api/v1',customersRouter);  // router cho customers
+app.use('/api/v1',staffsRouter);     // router cho staffs
+app.use('/api/v1',ordersRouter);     // router cho orders
 // -------------||END REGISTER ROUTES ||----------------
 
 
