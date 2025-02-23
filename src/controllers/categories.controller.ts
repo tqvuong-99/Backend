@@ -1,15 +1,17 @@
 import { Request, Response } from 'express';
 import categoriesService from '../services/categories.service';
 import { sendJsonSuccess } from '../helpers/response.helper';
+import { Types } from 'mongoose';
+
 const getAll = async (req: Request, res: Response) => {
-    const category = categoriesService.getAll();
+    const category =  await categoriesService.getAll();
     //res.status(200).json(category);
     sendJsonSuccess(res, category)
 };
 
 const getById = async (req: Request, res: Response) => {
     const { id } = req.params;
-    const category = categoriesService.getById(Number(id));
+    const category = await categoriesService.getById(id);
     res.status(200).json(category);
 }
  

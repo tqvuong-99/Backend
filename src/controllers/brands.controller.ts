@@ -1,5 +1,5 @@
 import createError from 'http-errors';
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import brandsService from '../services/brands.service';
 import { sendJsonSuccess, httpStatus } from '../helpers/response.helper';
 // Controller:
@@ -7,8 +7,8 @@ import { sendJsonSuccess, httpStatus } from '../helpers/response.helper';
  // - Nhận kết quả từ service tương ứng với đầu vào
  // - Response kết quả cho client
  // - Không nên xử lý nghiệp vụ ở controller
-const getAll = (req: Request, res: Response) => {
-    const brand = brandsService.getAll();
+const getAll = async(req: Request, res: Response) => {
+    const brand = await brandsService.getAll();
     //res.status(200).json(brand);
     sendJsonSuccess(res, brand)
 }
@@ -19,12 +19,14 @@ const getById = (req: Request, res: Response) => {
     res.status(200).json(brand);
 }
 
-const create = (req: Request, res: Response) => {
-    const payload = req.body;
-    const brand = brandsService.create(payload);
-    //res.status(201).json(brand);
-    sendJsonSuccess(res, brand, httpStatus.CREATED.statusCode,httpStatus.CREATED.message);
-}
+const create = async(req: Request, res: Response, next: NextFunction) => {
+    try {
+        const payload = req.body;
+        const brand = await brandsService.create(payload);
+        sendJsonSuccess(res, brand, httpStatus.CREATED.statusCode,httpStatus.CREATED.message);
+    } catch (error) {
+        next(error);
+}};
 
 const updateById = (req: Request, res: Response) => {
     const { id } = req.params;

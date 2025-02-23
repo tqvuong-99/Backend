@@ -1,4 +1,5 @@
 import createError from 'http-errors';
+import brandModel from '../models/brand.model';
 //Service
 // - Nhận đầu vào từ ControllerController
 //- Xử lý logic
@@ -9,8 +10,9 @@ const brands = [
     { id: 2, name: 'Brand 2' },
      ];
     
-const getAll = () => {
-    return brands;
+const getAll = async() => {
+    const b = await brandModel.find();
+    return b;
 }
 
 const getById = (id: Number) => {
@@ -23,9 +25,12 @@ const getById = (id: Number) => {
         return brand;
 }
 
-const create = (payload: {id: number, name:string}) => {
-    brands.push(payload);
-    return payload;
+const create = async(payload) => {
+    // brands.push(payload);
+    const brand = new brandModel(payload);
+    await brand.save();
+    // Trả về item vừa được tạo
+    return brand;
 }
 
 const updateById = (id: number, payload: {id: number, name: string}) => {

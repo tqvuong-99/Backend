@@ -8,8 +8,8 @@ POST http://localhost:8080/api/v1/brands
 Content-Type: application/json
 
 {
-    "id": 4,
-    "name": "brand 4"
+    "brand_name": "Sa",
+    "description": "Brand description"
 }
 
 ###

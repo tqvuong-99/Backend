@@ -1,31 +1,37 @@
 import createError from 'http-errors';
+import categoryModel from '../models/category.model';
+import { ICategoryCreate } from '../types/model';
 //Service
 // - Nhận đầu vào từ ControllerController
 //- Xử lý logic
 //- Lấy dữ liệu return về controller
 
-const categories = [
-    { id: 1, name: 'Category 1' },
-    { id: 2, name: 'Category 2' },
-     ];
+
     
-const getAll = () => {
+const getAll = async() => {
+    const categories = await categoryModel.find();
+    console.log('<<=== �� c ===>>', categories);
     return categories;
 }
 
-const getById = (id: Number) => {
-    const category = categories.find(category => category.id == Number(id));
-        // Nếu không tìm thấy thì hiển thị "Category not found"
-        if (!category) {
-            // throw new Error('Category not found');
-            throw createError(400, 'Category not found');
-        }
-        return category;
+const getById = async(id: string)=>{
+    //const category = categories.find(category => category.id == Number(id));
+    const category = await categoryModel.findById(id)
+    //Nếu không tìm thấy category thì trả về lỗi 404
+    if(!category){
+        //throw new Error('Category not found');
+        throw createError(400, 'Category not found');
+    }
+    return category;
 }
 
-const create = (payload: {id: number, name:string}) => {
-    categories.push(payload);
-    return payload;
+const create = async(payload: ICategoryCreate)=>{
+    //Tạo category mới
+    const category = new categoryModel(payload);
+    //Lưu vào database
+    await category.save();
+    //Trả về item vừa được tạo
+    return category;
 }
 
 const updateById = (id: number, payload: {id: number, name: string}) => {
