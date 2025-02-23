@@ -1,10 +1,7 @@
 import createError from 'http-errors';
 import { Request, Response } from 'express';
 import brandsService from '../services/brands.service';
-const brands = [
-    { id: 1, name: 'brand 1' },
-    { id: 2, name: 'brand 2' },
-     ];
+import { sendJsonSuccess, httpStatus } from '../helpers/response.helper';
 // Controller:
  // - Nhận đầu vào từ router
  // - Nhận kết quả từ service tương ứng với đầu vào
@@ -12,7 +9,8 @@ const brands = [
  // - Không nên xử lý nghiệp vụ ở controller
 const getAll = (req: Request, res: Response) => {
     const brand = brandsService.getAll();
-    res.status(200).json(brand);
+    //res.status(200).json(brand);
+    sendJsonSuccess(res, brand)
 }
 
 const getById = (req: Request, res: Response) => {
@@ -24,7 +22,8 @@ const getById = (req: Request, res: Response) => {
 const create = (req: Request, res: Response) => {
     const payload = req.body;
     const brand = brandsService.create(payload);
-    res.status(201).json(brand);
+    //res.status(201).json(brand);
+    sendJsonSuccess(res, brand, httpStatus.CREATED.statusCode,httpStatus.CREATED.message);
 }
 
 const updateById = (req: Request, res: Response) => {

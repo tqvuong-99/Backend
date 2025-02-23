@@ -1,9 +1,10 @@
 import { Request, Response } from 'express';
 import categoriesService from '../services/categories.service';
-
+import { sendJsonSuccess } from '../helpers/response.helper';
 const getAll = async (req: Request, res: Response) => {
     const category = categoriesService.getAll();
-    res.status(200).json(category);
+    //res.status(200).json(category);
+    sendJsonSuccess(res, category)
 };
 
 const getById = async (req: Request, res: Response) => {

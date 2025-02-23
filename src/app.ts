@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: false }));
 // -------------||BEGIN REGISTER ROUTES ||----------------
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello World');
-});
+}); 
 // Đăng kí route từ file bên ngoài
 app.use('/api/v1',categoriesRouter); // router cho categories
 app.use('/api/v1',brandsRouter);     // router cho brands
@@ -39,7 +39,8 @@ app.use(function (err: any, req: Request, res: Response, next: NextFunction) {
   const statusCode = err.status || 500;
   res.status(statusCode).json({ 
     statusCode: statusCode,
-    message: err.message 
+    message: err.message,
+    data: null 
   });
 });
 // -------------||END HANDLE ERRORS ||----------------
