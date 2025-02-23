@@ -1,8 +1,14 @@
+GET http://localhost:8080/api/v1/categories
+
+###
+GET http://localhost:8080/api/v1/categories/1
+
+###
 POST http://localhost:8080/api/v1/categories
 Content-Type: application/json
 
 {
-    "id": 3,
+    "id": 1,
     "name": "Electronics"
 }
 
@@ -11,10 +17,10 @@ PUT http://localhost:8080/api/v1/categories/1
 Content-Type: application/json
 
 {
-    "id": 3,
+    "id": 2,
     "name": "LG"
 }
 ### delete
-DELETE http://localhost:8080/api/v1/categories/2
+DELETE http://localhost:8080/api/v1/categories/3
 Content-Type: application/json
 

@@ -1,4 +1,5 @@
 import express, {Request, Response, NextFunction}  from 'express';
+//Import routes
 import categoriesRouter from './routes/v1/categories.route';
 import brandsRouter from './routes/v1/brands.route';
 import productsRouter from './routes/v1/products.route';

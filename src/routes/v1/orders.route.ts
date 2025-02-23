@@ -1,58 +1,15 @@
 import express from 'express';
-import CreateErrors from 'http-errors';
+import ordersController from '../../controllers/orders.controller';
 const router = express.Router();
-const order_items = [
-    { id: 1, name: 'order-items 1'},
-    { id: 2, name: 'order-items 2'},
-]
 
 // Get All Orders
-
-router.get('/orders', (req, res, next) => {
-    res.status(200).json(order_items);
-});
-
+router.get('/orders', ordersController.getAll);
 // Get Order by Id
-
-router.get('/orders/:id', (req, res, next) => {
-    const { id } = req.params;
-    const order_item = order_items.find(item => item.id === parseInt(id));
-    if (!order_item) {
-        next(CreateErrors(404, 'Order not found'));
-    }
-    res.status(200).json(order_item);
-});
-
+router.get('/orders/:id', ordersController.getById);
 // Create Order
-
-router.post('/orders', (req, res, next) => {
-    const order_item = req.body;
-    order_items.push(order_item);
-    res.status(201).json(order_item);
-});
-
+router.post('/orders', ordersController.create);
 // Update Order
-
-router.put('/orders/:id', (req, res, next) => {
-    const { id } = req.params;
-    const index = order_items.findIndex(item => item.id === parseInt(id));
-    if (index === -1) {
-        next(CreateErrors(404, 'Order not found'));
-    }
-    const updated_order_item = {...req.body, id: parseInt(id)};
-    order_items[index] = updated_order_item;
-    res.status(200).json(updated_order_item);
-});
-
+router.put('/orders/:id', ordersController.updateById);
 // Delete Order 
-
-router.delete('/orders/:id', (req, res, next) => {
-    const { id } = req.params;
-    const index = order_items.findIndex(item => item.id === parseInt(id));
-    if (index === -1) {
-        next(CreateErrors(404, 'Order not found'));
-    }
-    order_items.splice(index, 1);
-    res.status(200).send({message: "Order_item deleted successfully"});
-});
+router.delete('/orders/:id', ordersController.deleteById);
 export default router;
