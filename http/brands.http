@@ -1,0 +1,26 @@
+GET http://localhost:8080/api/v1/brands
+Content-Type: application/json
+###
+GET http://localhost:8080/api/v1/brands/2
+Content-Type: application/json
+###
+POST http://localhost:8080/api/v1/brands
+Content-Type: application/json
+
+{
+    "id": 4,
+    "name": "brand 4"
+}
+
+###
+PUT http://localhost:8080/api/v1/brands/2
+Content-Type: application/json
+
+{
+    "id": 2,
+    "name": "brand 2 updated"
+}
+
+###
+DELETE http://localhost:8080/api/v1/brands/2
+Content-Type: application/json
