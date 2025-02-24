@@ -7,7 +7,6 @@ const brandSchema = new Schema({
         minLength: [4, "Tên thương hiệu phải từ 4 đến 50 kí tự"], // độ dài tối thiểuthiểu
         maxLength: 50, // độ dài tối đađa
         trim: true,
-        lowercase: true,
     },
     description: {
         type: String,
@@ -17,7 +16,7 @@ const brandSchema = new Schema({
     },
 }, 
     { 
-        timestamps: true, // Tự động sinh ra 2 trường createAt và updatedAtupdatedAt
+        timestamps: true, // Tự động sinh ra 2 trường createAt và updatedAt
         versionKey: false,
         collection: "brands"  // tùy chỉnh tên collection để tiện quản lýlý
     })

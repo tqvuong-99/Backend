@@ -2,7 +2,7 @@ GET http://localhost:8080/api/v1/customers
 Content-Type: application/json
 
 ###
-GET http://localhost:8080/api/v1/customers/1
+GET http://localhost:8080/api/v1/customers/67bbece2351742695ebb2d4e
 Content-Type: application/json
 
 ###
@@ -10,19 +10,20 @@ POST http://localhost:8080/api/v1/customers
 Content-Type: application/json
 
 {
-    "id": 3,
-    "name": "customer 3"
+    "customer_name": "Jackie",
+    "description":"Jackie description"
 }
 
 ###
-PUT http://localhost:8080/api/v1/customers/1
+PUT http://localhost:8080/api/v1/customers/67bbf2362d3c21846d7ebe78
 Content-Type: application/json
 
 {
-    "id": 1,
-    "name": "updated customer 1"
+
+    "customer_name": "Jany",
+    "description":"Jany description"
 }
 
 ###
-DELETE http://localhost:8080/api/v1/customers/4
+DELETE http://localhost:8080/api/v1/customers/67bbf2362d3c21846d7ebe78
 Content-Type: application/json

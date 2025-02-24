@@ -1,56 +1,58 @@
 import createError from 'http-errors';
-import categoryModel from '../models/category.model';
-import { ICategoryCreate } from '../types/model';
+import customerModel from '../models/customer.model';
+import { ICustomerCreate } from '../types/model';
+import mongoose from "mongoose";
 //Service
 // - Nhận đầu vào từ ControllerController
 //- Xử lý logic
 //- Lấy dữ liệu return về controller
-
-
-    
+ 
 const getAll = async() => {
-    const categories = await categoryModel.find();
-    console.log('<<=== �� c ===>>', categories);
-    return categories;
+    const customer = await customerModel.find();
+    return customer;
 }
 
-const getById = async(id: string)=>{
-    //const category = categories.find(category => category.id == Number(id));
-    const category = await categoryModel.findById(id)
-    //Nếu không tìm thấy category thì trả về lỗi 404
-    if(!category){
-        //throw new Error('Category not found');
-        throw createError(400, 'Category not found');
-    }
-    return category;
-}
-
-const create = async(payload: ICategoryCreate)=>{
-    //Tạo category mới
-    const category = new categoryModel(payload);
-    //Lưu vào database
-    await category.save();
-    //Trả về item vừa được tạo
-    return category;
-}
-
-const updateById = (id: number, payload: {id: number, name: string}) => {
-    const categoryIndex = categories.findIndex(c => c.id == Number(id));
-        if (categoryIndex === -1) {
-            throw createError(400, 'Category not found');
+const getById = async (id: mongoose.Types.ObjectId) => {
+    const customer = await customerModel.findById(id);
+        if (!customer) 
+        {
+            throw createError(400, 'Customer not found');
         }
-        categories[categoryIndex] = payload;
-        //return payload;
-        return payload;
+        
+        return customer;
 }
 
-const deleteById = (id: number) => {
-    const category = categories.findIndex(c => c.id == Number(id));
-    if (!category) {
-        throw createError(400, 'Category not found');
+const create = async(payload: ICustomerCreate) => {
+    // customers.push(payload);
+    const customer = new customerModel(payload);
+    await customer.save();
+    // Trả về item vừa được tạo
+    return customer;
+}
+const updateById = async (id: mongoose.Types.ObjectId, payload: ICustomerCreate) => {
+    const customer = await customerModel.findByIdAndUpdate(id);
+    // console.log(customer);
+    if (!customer) {
+        throw createError(400, 'Customer not found');
     }
-    categories.splice(category, 1);
-    return category;
+
+    customer.customer_name = payload.customer_name;
+    customer.description = payload.description;
+    await customer.save();
+    return customer;
+}
+
+const deleteById = async(id: mongoose.Types.ObjectId) => {
+    try {        
+        const customer = await customerModel.findById(id);
+        if (!customer) {
+            throw createError(400, 'Customer not found');
+        }
+        await customer.deleteOne();
+        return customer;
+    } catch (error) {
+        console.log(error);
+    }
 }
 export default  {
     getAll,

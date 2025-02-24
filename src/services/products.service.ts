@@ -1,50 +1,58 @@
 import createError from 'http-errors';
+import productModel from '../models/product.model';
+import { IProductCreate } from '../types/model';
+import mongoose from "mongoose";
 //Service
 // - Nhận đầu vào từ ControllerController
 //- Xử lý logic
 //- Lấy dữ liệu return về controller
-
-const products = [
-    { id: 1, name: 'Product 1' },
-    { id: 2, name: 'Product 2' },
-     ];
-    
-const getAll = () => {
-    return products;
+ 
+const getAll = async() => {
+    const product = await productModel.find();
+    return product;
 }
 
-const getById = (id: Number) => {
-    const product = products.find(product => product.id == Number(id));
-        // Nếu không tìm thấy thì hiển thị "Product not found"
-        if (!product) {
-            // throw new Error('Product not found');
+const getById = async (id: mongoose.Types.ObjectId) => {
+    const product = await productModel.findById(id);
+        if (!product) 
+        {
             throw createError(400, 'Product not found');
         }
+        
         return product;
 }
 
-const create = (payload: {id: number, name:string}) => {
-    products.push(payload);
-    return payload;
+const create = async(payload: IProductCreate) => {
+    // products.push(payload);
+    const product = new productModel(payload);
+    await product.save();
+    // Trả về item vừa được tạo
+    return product;
 }
-
-const updateById = (id: number, payload: {id: number, name: string}) => {
-    const productIndex = products.findIndex(c => c.id == Number(id));
-        if (productIndex === -1) {
-            throw createError(400, 'Product not found');
-        }
-        products[productIndex] = payload;
-        //return payload;
-        return payload;
-}
-
-const deleteById = (id: number) => {
-    const product = products.findIndex(c => c.id == Number(id));
+const updateById = async (id: mongoose.Types.ObjectId, payload: IProductCreate) => {
+    const product = await productModel.findByIdAndUpdate(id);
+    // console.log(product);
     if (!product) {
         throw createError(400, 'Product not found');
     }
-    products.splice(product, 1);
+
+    product.product_name = payload.product_name;
+    product.description = payload.description;
+    await product.save();
     return product;
+}
+
+const deleteById = async(id: mongoose.Types.ObjectId) => {
+    try {        
+        const product = await productModel.findById(id);
+        if (!product) {
+            throw createError(400, 'Product not found');
+        }
+        await product.deleteOne();
+        return product;
+    } catch (error) {
+        console.log(error);
+    }
 }
 export default  {
     getAll,

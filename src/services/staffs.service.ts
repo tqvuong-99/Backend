@@ -1,50 +1,58 @@
 import createError from 'http-errors';
+import staffModel from '../models/staff.model';
+import { IStaffCreate } from '../types/model';
+import mongoose from "mongoose";
 //Service
 // - Nhận đầu vào từ ControllerController
 //- Xử lý logic
 //- Lấy dữ liệu return về controller
-
-const staffs = [
-    { id: 1, name: 'Staff 1' },
-    { id: 2, name: 'Staff 2' },
-     ];
-    
-const getAll = () => {
-    return staffs;
+ 
+const getAll = async() => {
+    const staff = await staffModel.find();
+    return staff;
 }
 
-const getById = (id: Number) => {
-    const staff = staffs.find(staff => staff.id == Number(id));
-        // Nếu không tìm thấy thì hiển thị "Staff not found"
-        if (!staff) {
-            // throw new Error('Staff not found');
+const getById = async (id: mongoose.Types.ObjectId) => {
+    const staff = await staffModel.findById(id);
+        if (!staff) 
+        {
             throw createError(400, 'Staff not found');
         }
+        
         return staff;
 }
 
-const create = (payload: {id: number, name:string}) => {
-    staffs.push(payload);
-    return payload;
+const create = async(payload: IStaffCreate) => {
+    // staffs.push(payload);
+    const staff = new staffModel(payload);
+    await staff.save();
+    // Trả về item vừa được tạo
+    return staff;
 }
-
-const updateById = (id: number, payload: {id: number, name: string}) => {
-    const staffIndex = staffs.findIndex(c => c.id == Number(id));
-        if (staffIndex === -1) {
-            throw createError(400, 'Staff not found');
-        }
-        staffs[staffIndex] = payload;
-        //return payload;
-        return payload;
-}
-
-const deleteById = (id: number) => {
-    const staff = staffs.findIndex(c => c.id == Number(id));
+const updateById = async (id: mongoose.Types.ObjectId, payload: IStaffCreate) => {
+    const staff = await staffModel.findByIdAndUpdate(id);
+    // console.log(staff);
     if (!staff) {
         throw createError(400, 'Staff not found');
     }
-    staffs.splice(staff, 1);
+
+    staff.staff_name = payload.staff_name;
+    staff.description = payload.description;
+    await staff.save();
     return staff;
+}
+
+const deleteById = async(id: mongoose.Types.ObjectId) => {
+    try {        
+        const staff = await staffModel.findById(id);
+        if (!staff) {
+            throw createError(400, 'Staff not found');
+        }
+        await staff.deleteOne();
+        return staff;
+    } catch (error) {
+        console.log(error);
+    }
 }
 export default  {
     getAll,

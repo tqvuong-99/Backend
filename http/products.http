@@ -1,7 +1,7 @@
 GET http://localhost:8080/api/v1/products 
 Content-Type: application/json
 ###
-GET http://localhost:8080/api/v1/products/2
+GET http://localhost:8080/api/v1/products/67bc3d5e83f6a95b649057b9
 Content-Type: application/json
 
 ###
@@ -9,19 +9,19 @@ POST http://localhost:8080/api/v1/products
 Content-Type: application/json
 
 {
-    "id": 3,
-    "name": "product 3"
+    "product_name": "product 5",
+    "description": "description 5"
 }
 
 ###
-PUT http://localhost:8080/api/v1/products/2
+PUT http://localhost:8080/api/v1/products/67bc85d16c85b104bda94edd
 Content-Type: application/json
 
 {
-    "id": 2,
-    "name": "updated product 2"
+    "product_name": "product 6",
+    "description": "description 6"
 }
 
 ###
-DELETE http://localhost:8080/api/v1/products/2
+DELETE http://localhost:8080/api/v1/products/67bc85d16c85b104bda94edd
 Content-Type: application/json

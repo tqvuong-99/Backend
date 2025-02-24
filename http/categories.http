@@ -1,26 +1,26 @@
 GET http://localhost:8080/api/v1/categories
 
 ###
-GET http://localhost:8080/api/v1/categories/1
+GET http://localhost:8080/api/v1/categories/67bc7d9836f691ebe968968b
 
 ###
 POST http://localhost:8080/api/v1/categories
 Content-Type: application/json
 
 {
-    "category_name": "Electronics",
-    "description": "Electronics description"
+    "category_name": "Iphone14",
+    "description": "Iphone14 description"
 }
 
 ### update
-PUT http://localhost:8080/api/v1/categories/1
+PUT http://localhost:8080/api/v1/categories/67bc7fe4b1b90d2444c5e6fe
 Content-Type: application/json
 
 {
-    "id": 2,
-    "name": "LG"
+    "category_name": "Iphone15",
+    "description": "Iphone15 description"
 }
 ### delete
-DELETE http://localhost:8080/api/v1/categories/3
+DELETE http://localhost:8080/api/v1/categories/67bc7fc3b1b90d2444c5e6fc
 Content-Type: application/json
 
