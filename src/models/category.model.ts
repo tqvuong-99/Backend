@@ -15,7 +15,15 @@ const categorySchema = new Schema({
         maxLength: 500,
         trim: true, // xóa khoảng trắng ở đầu và cuối 
         default: "" // giá trị mặc định khi tạo mới
-    },    
+    }, 
+    slug: {
+        type: String,
+        maxLength: 50,
+        minLength: 3,
+        required: true,
+        unique: true,
+        lowercase: true,
+    }   
 },{
     timestamps: true, // thêm thoi gian tạo và cập nhật document
     versionKey: false, // ẩn cột _v của Mongoose

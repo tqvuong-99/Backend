@@ -12,12 +12,6 @@ const brandSchema = new Schema({
         required: false,
         unique: false,
     },
-    slug: {
-        type: String,
-        maxLength: 100,
-        required: true, // NOT NULL
-        unique: true, // duy nhất
-    },
 }, 
     { 
         timestamps: true, // Tự động sinh ra 2 trường createAt và updatedAt
