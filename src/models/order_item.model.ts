@@ -6,11 +6,31 @@ const order_itemSchema = new Schema({
         unique: true,
         trim: true,
     },
-    description: {
-        type: String,
-        maxLength: 500,
-        trim: true, // xóa khoảng trắng ở đầu và cuối 
-        default: "" // giá trị mặc định khi tạo mới
+    item_id: {
+        type: Number,
+        required: true,
+        trim: true,
+    },
+    product_id: {
+        type: Schema.Types.ObjectId,
+        ref: "Product",
+        required: true,
+    },
+    quantity: {
+        type: Number,
+        required: true,
+        min:0,
+    },
+    price: {
+        type: Number,
+        required: true,
+        min:0,
+    },
+    discount: {
+        type: Number,
+        required: true,
+        min:0,
+        max:70,
     },
 }, 
     { 
