@@ -4,15 +4,19 @@ const brandSchema = new Schema({
         type: String,
         required: true, // NOT NULL
         unique: true, // duy nhấtất
-        minLength: [4, "Tên thương hiệu phải từ 4 đến 50 kí tự"], // độ dài tối thiểuthiểu
-        maxLength: 50, // độ dài tối đađa
-        trim: true,
+        maxLength: 100, // độ dài tối đađa
     },
     description: {
         type: String,
         maxLength: 500,
-        trim: true, // xóa khoảng trắng ở đầu và cuối 
-        default: "" // giá trị mặc định khi tạo mới
+        required: false,
+        unique: false,
+    },
+    slug: {
+        type: String,
+        maxLength: 100,
+        required: true, // NOT NULL
+        unique: true, // duy nhất
     },
 }, 
     { 

@@ -6,9 +6,9 @@ import { Schema, model } from "mongoose";
 const categorySchema = new Schema({
     category_name: {
         type: String,
+        maxLength: 50,
         required: true, // NOT NULL
-        unique: true, // duy nhấtất
-        trim: true,
+        unique: true, // duy nhất
     },
     description: {
         type: String,
@@ -16,6 +16,8 @@ const categorySchema = new Schema({
         trim: true, // xóa khoảng trắng ở đầu và cuối 
         default: "" // giá trị mặc định khi tạo mới
     },
+    
+    
 },{
     timestamps: true, // thêm thoi gian tạo và cập nhật document
     versionKey: false, // ẩn cột _v của Mongoose
