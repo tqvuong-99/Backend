@@ -8,8 +8,8 @@ import mongoose from "mongoose";
 //- Lấy dữ liệu return về controller
  
 const getAll = async() => {
-    const product = await productModel.find();
-    return product;
+    const products = await productModel.find();
+    return products;
 }
 
 const getById = async (id: mongoose.Types.ObjectId) => {
@@ -23,36 +23,37 @@ const getById = async (id: mongoose.Types.ObjectId) => {
 }
 
 const create = async(payload: IProductCreate) => {
-    // products.push(payload);
+    //Kiểm tra xem có tồn tại sản phẩm có tên giống nhau không 
+    const productExist = await productModel.findOne({product_name: payload.product_name});
+    if (productExist) {
+        throw createError(400, 'Product already exists');
+    }
     const product = new productModel(payload);
     await product.save();
     // Trả về item vừa được tạo
     return product;
 }
 const updateById = async (id: mongoose.Types.ObjectId, payload: IProductCreate) => {
-    const product = await productModel.findByIdAndUpdate(id);
-    // console.log(product);
-    if (!product) {
-        throw createError(400, 'Product not found');
+    //Kiểm tra xem có tồn tại sản phẩm có id này không 
+    const product = await getById(id);
+    // Kiểm tra có tên giống nhau không
+    const productExist = await productModel.findOne({product_name: payload.product_name});
+    if (productExist && productExist._id.toString() !== id.toString()) {
+        throw createError(400, 'Product name already exists');
     }
-
-    product.product_name = payload.product_name;
-    product.description = payload.description;
-    await product.save();
+    // Cập nhật lại tên sản phẩm 
+    Object.assign(product, payload); //trộn dữ liệu cũ và mới
+    await product.save(); //lưu lại vào db
     return product;
 }
 
-const deleteById = async(id: mongoose.Types.ObjectId) => {
-    try {        
-        const product = await productModel.findById(id);
+const deleteById = async(id: mongoose.Types.ObjectId) => {     
+        const product = await getById(id);
         if (!product) {
             throw createError(400, 'Product not found');
         }
-        await product.deleteOne();
+        await product.deleteOne({_id:product._id});
         return product;
-    } catch (error) {
-        console.log(error);
-    }
 }
 export default  {
     getAll,

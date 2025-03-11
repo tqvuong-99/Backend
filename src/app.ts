@@ -7,6 +7,7 @@ import customersRouter from './routes/v1/customers.route';
 import staffsRouter from './routes/v1/staffs.route';
 import ordersRouter from './routes/v1/orders.route';
 import orderItemRouter from './routes/v1/order_item.route';
+import queriesRouter from './routes/v1/queries.route';
 import createError from 'http-errors';
 
 // -------------||INITIAL APP||----------------
@@ -26,6 +27,7 @@ app.use('/api/v1',customersRouter);  // router cho customers
 app.use('/api/v1',staffsRouter);     // router cho staffs
 app.use('/api/v1',ordersRouter);     // router cho orders
 app.use('/api/v1',orderItemRouter);     // router cho orders
+app.use('/api/v1',queriesRouter);     // router cho orders
 // -------------||END REGISTER ROUTES ||----------------
 
 

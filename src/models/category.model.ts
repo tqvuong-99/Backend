@@ -1,3 +1,4 @@
+import { lchown } from "fs";
 import { Schema, model } from "mongoose";
 
 /**
@@ -7,15 +8,15 @@ const categorySchema = new Schema({
     category_name: {
         type: String,
         maxLength: 50,
-        required: true, // NOT NULL
-        unique: true, // duy nhất
+        minLength: 3,
+        required: true,
+        unique: true
     },
     description: {
         type: String,
-        maxLength: 500,
-        trim: true, // xóa khoảng trắng ở đầu và cuối 
-        default: "" // giá trị mặc định khi tạo mới
-    }, 
+        maxLength: 255,
+        required: false, //
+    },
     slug: {
         type: String,
         maxLength: 50,
@@ -23,11 +24,12 @@ const categorySchema = new Schema({
         required: true,
         unique: true,
         lowercase: true,
-    }   
-},{
-    timestamps: true, // thêm thoi gian tạo và cập nhật document
-    versionKey: false, // ẩn cột _v của Mongoose
-    collection: "categories"
-})
+    },
+}, 
+    { 
+        timestamps: true, // Tự động sinh ra 2 trường createAt và updatedAt
+        versionKey: false,
+        collection: "categories"  // tùy chỉnh tên collection để tiện quản lýlý
+    })
 
 export default model('Category', categorySchema);
