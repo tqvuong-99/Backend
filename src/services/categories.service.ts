@@ -1,6 +1,6 @@
 import createError from 'http-errors';
-import customerModel from '../models/customer.model';
-import { ICustomerCreate } from '../types/model';
+import categoryModel from '../models/category.model';
+import { ICategoryCreate } from '../types/model';
 import mongoose from "mongoose";
 //Service
 // - Nhận đầu vào từ ControllerController
@@ -8,48 +8,48 @@ import mongoose from "mongoose";
 //- Lấy dữ liệu return về controller
  
 const getAll = async() => {
-    const customer = await customerModel.find();
-    return customer;
+    const category = await categoryModel.find();
+    return category;
 }
 
 const getById = async (id: mongoose.Types.ObjectId) => {
-    const customer = await customerModel.findById(id);
-        if (!customer) 
+    const category = await categoryModel.findById(id);
+        if (!category) 
         {
-            throw createError(400, 'Customer not found');
+            throw createError(400, 'Category not found');
         }
         
-        return customer;
+        return category;
 }
 
-const create = async(payload: ICustomerCreate) => {
-    // customers.push(payload);
-    const customer = new customerModel(payload);
-    await customer.save();
+const create = async(payload: ICategoryCreate) => {
+    // categorys.push(payload);
+    const category = new categoryModel(payload);
+    await category.save();
     // Trả về item vừa được tạo
-    return customer;
+    return category;
 }
-const updateById = async (id: mongoose.Types.ObjectId, payload: ICustomerCreate) => {
-    const customer = await customerModel.findByIdAndUpdate(id);
-    // console.log(customer);
-    if (!customer) {
-        throw createError(400, 'Customer not found');
+const updateById = async (id: mongoose.Types.ObjectId, payload: ICategoryCreate) => {
+    const category = await categoryModel.findByIdAndUpdate(id);
+    // console.log(category);
+    if (!category) {
+        throw createError(400, 'Category not found');
     }
 
-    customer.customer_name = payload.customer_name;
-    customer.description = payload.description;
-    await customer.save();
-    return customer;
+    category.category_name = payload.category_name;
+    category.description = payload.description;
+    await category.save();
+    return category;
 }
 
 const deleteById = async(id: mongoose.Types.ObjectId) => {
     try {        
-        const customer = await customerModel.findById(id);
-        if (!customer) {
-            throw createError(400, 'Customer not found');
+        const category = await categoryModel.findById(id);
+        if (!category) {
+            throw createError(400, 'Category not found');
         }
-        await customer.deleteOne();
-        return customer;
+        await category.deleteOne();
+        return category;
     } catch (error) {
         console.log(error);
     }

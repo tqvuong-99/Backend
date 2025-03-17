@@ -5,7 +5,7 @@ import mongoose from "mongoose";
 
 const getAll = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const product = await productsService.getAll();
+    const product = await productsService.getAll(req.query);
     sendJsonSuccess(res, product);
   } catch (error) {
     next(error);

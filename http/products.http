@@ -1,7 +1,7 @@
 GET http://localhost:8080/api/v1/products 
 Content-Type: application/json
 ###
-GET http://localhost:8080/api/v1/products/67bc3d5e83f6a95b649057b9
+GET http://localhost:8080/api/v1/products/67cfb85264827597d6ddfa8e
 Content-Type: application/json
 
 ###
@@ -10,18 +10,34 @@ Content-Type: application/json
 
 {
     "product_name": "product 5",
-    "description": "description 5"
+    "price": 100,
+    "discount": 10,
+    "description": "description 5",
+    "model_year": 2022,
+    "stock": 50,
+    "slug": "product-5",
+    "thumbnail": "http://example.com/thumbnail.jpg",
+    "category": "60d21b4667d0d8992e610c85",
+    "brand_id": "60d21b4667d0d8992e610c86"
 }
 
 ###
-PUT http://localhost:8080/api/v1/products/67bc85d16c85b104bda94edd
+PUT http://localhost:8080/api/v1/products/67cfb85264827597d6ddfa8e
 Content-Type: application/json
 
 {
     "product_name": "product 6",
-    "description": "description 6"
+    "price": 150,
+    "discount": 15,
+    "description": "description 6",
+    "model_year": 2023,
+    "stock": 30,
+    "slug": "product-6",
+    "thumbnail": "http://example.com/thumbnail2.jpg",
+    "category": "67c7c46e39a7e00ed55ff2d4",
+    "brand_id": "67c7c132a593945e2b20ef8e"
 }
 
 ###
-DELETE http://localhost:8080/api/v1/products/67bc85d16c85b104bda94edd
+DELETE http://localhost:8080/api/v1/products/67cfb85264827597d6ddfa8e
 Content-Type: application/json

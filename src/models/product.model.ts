@@ -11,13 +11,13 @@ const productSchema = new Schema({
     },
     price: {
         type: Number,
-        require: false,
+        required: false, // Sửa lỗi chính tả từ "require" thành "required"
         min: 0,
         default: 0
     },
     discount: {
         type: Number,
-        require: false,
+        required: false, // Sửa lỗi chính tả từ "require" thành "required"
         min: 0,
         max: 70,
         default: 0
@@ -55,13 +55,13 @@ const productSchema = new Schema({
         type: Schema.Types.ObjectId,
         //tham chiếu tới _id model Category
         ref: 'Category', 
-        require: true,
+        required: true, // Sửa lỗi chính tả từ "require" thành "required"
     },
     brand_id: {
         type: Schema.Types.ObjectId,
         //tham chiếu tới _id model Category
         ref: 'Brand',
-        require: true,
+        required: true, // Sửa lỗi chính tả từ "require" thành "required"
     }
 
 },{
