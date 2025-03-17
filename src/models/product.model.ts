@@ -1,4 +1,5 @@
 import { Schema, model } from "mongoose";
+const mongoose = require("mongoose");
 
 const productSchema = new Schema({
     product_name: {
@@ -52,16 +53,16 @@ const productSchema = new Schema({
     },
     //Tham chiếu
     category: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         //tham chiếu tới _id model Category
         ref: 'Category', 
-        required: true, // Sửa lỗi chính tả từ "require" thành "required"
+        required: true,
     },
     brand_id: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         //tham chiếu tới _id model Category
         ref: 'Brand',
-        required: true, // Sửa lỗi chính tả từ "require" thành "required"
+        required: true,
     }
 
 },{

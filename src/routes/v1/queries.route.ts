@@ -4,9 +4,9 @@ import Product from '../../models/product.model';
 // GET: /api/v1/queries
 
 router.get('/queries',  async (req, res) => {
-    // // 1. find() -- Extract all databasess from collection
-    //     const products = await Product.find();
-    //     res.json(products); 
+    // 1. find() -- Extract all databasess from collection
+        // const products = await Product.find();
+        // res.json(products); 
     
     //2. findbyid() -- Extract 1 with id
     //~ SQL: SELECT * FROM product WHERE _id = 'id'
@@ -15,7 +15,7 @@ router.get('/queries',  async (req, res) => {
     
     //3. Get only 1 record ~ SQL: SELECT TOP 1* FROM product WHERE _id = 'id'
     // const product = await Product.findOne({
-    //     model_year:2262
+    //     model_year:2657
     // });
     // res.json(product);
 
@@ -42,8 +42,8 @@ router.get('/queries',  async (req, res) => {
     
     //7. Find with Equal comparison condition  ~ SELECT * from product WHERE model_year = xxxx
     // const products = await Product.find({
-    //     model_year: 2194,
-    //     // or  model_year:{$eq:2194},
+    //     // model_year: 2657,
+    //       model_year:{$eq:2657},
     // })
     // res.json(products);
 
@@ -69,6 +69,7 @@ router.get('/queries',  async (req, res) => {
     const pageSize = 10; // Số lượng items trên 1 trang
     const product = await Product
     .find()
+    .populate('category', 'category_name')
     .populate('brand_id')
     .skip((currentPage - 1) * pageSize)
     .limit(pageSize)
