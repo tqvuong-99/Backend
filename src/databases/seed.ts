@@ -1,9 +1,9 @@
 import { faker } from "@faker-js/faker";
 import mongoose from "mongoose";
 import { env } from "../helpers/env.helper";
-import Brand from "../models/brand.model";
-import Category from "../models/category.model";
+import brandModel from "../models/brand.model";
 import Product from "../models/product.model";
+import categoryModel from "../models/category.model";
 
 // Step1: connect database with mongoose
 
@@ -26,8 +26,8 @@ mongoose
   });
 
 //     // Step2: Use models to connect to collection
-const fakeData = async () => {
-  //     //new fake brand with loop
+// const fakeData = async () => {
+      //new fake brand with loop
   //     for (let index =1; index <=5; index++)  {
   //     const brand = new brandModel({
   //         brand_name: faker.company.buzzNoun() + index, // create unique brand name
@@ -38,24 +38,24 @@ const fakeData = async () => {
   // }}
 
   // Tạo brand từ mảng có sẵn:
-  //await Brand.insertMany(brands);
+  // await Brand.insertMany(brands);
 
   //     // Step2: Use models to connect to collection
-  // const fakeData = async () => {
+  const fakeData = async () => {
   //     //new fake brand with loop
   //     for (let index =1; index <=5; index++)  {
   //     const categoryName = faker.commerce.department() + index;
   //     const category = new categoryModel({
   //         category_name: categoryName, // create unique brand name
-  //         description: faker.lorem.words(50),
+  //         description: faker.lorem.words(10),
   //         slug: faker.helpers.slugify(categoryName),
   //     });
   //     await category.save();
   //     console.log(`Fake data created successfully ${index}`);
   // }}
 
-  const currentBrands = await Brand.find();
-  const currentCategories = await Category.find();
+  const currentBrands = await brandModel.find();
+  const currentCategories = await categoryModel.find();
 
   for (let i = 1; i <= 15; i++) {
     let productName = faker.commerce.productName() + i;
