@@ -12,9 +12,7 @@ const getAll = async (query: any) => {
     //Nếu không tồn tại thì sẽ sắp xếp theo createdAt
     let sortObject = {};
     sortObject = { ...sortObject, [sort_by]: sort_type === 'desc' ? -1 : 1 };
-
-    console.log('<<=== 🚀sortObject  ===>>',sortObject);
-
+    
     //Tìm kiếm theo điều kiện
     let where = {};
     //Nếu có tìm kiếm theo tên sản phẩm
@@ -39,6 +37,7 @@ const getAll = async (query: any) => {
   .skip((page - 1) * limit)
   .limit(limit)
   .sort({...sortObject});
+<<<<<<< HEAD
   //Đếm tổng số record hiện có của collection Product
 const count = await productModel.countDocuments(where);
 
@@ -50,7 +49,25 @@ return {
     limit: +limit
   }
 };
+=======
+
+  //Đếm tổng số record hiện có của collection Product
+const count = await productModel.countDocuments(where);
+
+  return {
+    products,
+    panigation:{
+      totalRecord: count,
+      page: +page,
+      limit: +limit
+    }
+  };
+>>>>>>> c7db69b42bd90a7518acc0ba5365412e227d111e
 }
+
+
+
+
 
 const getById = async (id: mongoose.Types.ObjectId) => {
   const product = await productModel.findById(id);
