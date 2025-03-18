@@ -39,7 +39,17 @@ const getAll = async (query: any) => {
   .skip((page - 1) * limit)
   .limit(limit)
   .sort({...sortObject});
-  return products;
+  //Đếm tổng số record hiện có của collection Product
+const count = await productModel.countDocuments(where);
+
+return {
+  products,
+  panigation:{
+    totalRecord: count,
+    page: +page,
+    limit: +limit
+  }
+};
 }
 
 const getById = async (id: mongoose.Types.ObjectId) => {

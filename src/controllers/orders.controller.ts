@@ -8,7 +8,7 @@ import mongoose from "mongoose";
 // - Response kết quả cho client
 // - Không nên xử lý nghiệp vụ ở controller
 const getAll = async (req: Request, res: Response) => {
-  const order = await ordersService.getAll();
+  const order = await ordersService.getAll(req.query);
   //res.status(200).json(order);
   sendJsonSuccess(res, order);
 };

@@ -18,9 +18,7 @@ const getById = async (req: Request, res: Response, next: NextFunction) => {
     const product = await productsService.getById(
       new mongoose.Types.ObjectId(id)
     );
-    res.status(200).json({
-      data: product,
-    });
+    sendJsonSuccess(res, product);
   } catch (error) {
     next(error);
   }

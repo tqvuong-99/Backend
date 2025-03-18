@@ -7,11 +7,51 @@ import mongoose from "mongoose";
 //- Xử lý logic
 //- Lấy dữ liệu return về controller
  
-const getAll = async() => {
-    const order = await orderModel.find();
-    return order;
-}
+const getAll = async (query: any) => {
+    //Lấy ra các tham số truyền vào
+    //page = query.page, nếu page không tồn tại thì mặc định là 1
+  const { page = 1, limit = 10, sort_type = 'desc', sort_by='createdAt' } = query;
 
+  //Nếu tồn tại sortType và sortBy thì sẽ sắp xếp theo sortType và sortBy
+    //Nếu không tồn tại thì sẽ sắp xếp theo createdAt
+    let sortObject = {};
+    sortObject = { ...sortObject, [sort_by]: sort_type === 'desc' ? -1 : 1 };
+
+    console.log('<<=== 🚀sortObject  ===>>',sortObject);
+
+    // //Tìm kiếm theo điều kiện
+    let where = {};
+    // //Nếu có tìm kiếm theo tên sản phẩm
+    // if (query.order_item_name && query.order_item_name.length > 0) {
+    //     where = { ...where, order_item_name: { $regex: query.order_item_name, $options: 'i' } };
+    // }
+    // //Nếu tìm kiếm theo danh mục
+    // if (query.category && query.category.length > 0) {
+    //     where = { ...where, category: query.category };
+    // }
+    // //Nếu tìm kiếm theo thương hiệu
+    // if (query.order_item_id && query.order_item_id.length > 0) {
+    //     where = { ...where, order_item_id: query.order_item_id };
+    // }
+
+    //Thêm các điều kiện khác nếu cần
+
+  const orders = await orderModel
+  .find(where)
+  .skip((page - 1) * limit)
+  .limit(limit)
+  .sort({...sortObject});
+  //Đếm tổng số record hiện có của collection Product
+const count = await orderModel.countDocuments(where);
+
+return {
+    orders,
+  panigation:{
+    totalRecord: count,
+    page: +page,
+    limit: +limit
+  }
+}};
 const getById = async (id: mongoose.Types.ObjectId) => {
     const order = await orderModel.findById(id);
         if (!order) 
