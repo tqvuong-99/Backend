@@ -2,6 +2,7 @@ import createError from "http-errors";
 import categoryModel from "../models/category.model";
 import { ICategoryCreate } from "../types/model";
 import mongoose from "mongoose";
+import { buildSlug } from "../helpers/slugify.helper";
 
 const getAll = async (query: any) => {
     //Lấy ra các tham số truyền vào
@@ -66,7 +67,11 @@ const create = async (payload: ICategoryCreate) => {
   if (categoryExist) {
     throw createError(400, "Category already exists");
   }
-  const category = new categoryModel(payload);
+  const category = new categoryModel({
+    category_name: payload.category_name,
+    description: payload.description,
+    slug: buildSlug(payload.category_name)
+  });
   await category.save();
   // Trả về item vừa được tạo
   return category;
@@ -84,7 +89,13 @@ const updateById = async (
   if (categoryExist && categoryExist._id.toString() !== id.toString()) {
     throw createError(400, "Category name already exists");
   }
-  // Cập nhật lại tên sản phẩm
+  // Cập nhật lcataegory
+
+  // Cập nhật slug
+  if (payload.category_name) {
+    payload.slug = buildSlug(payload.category_name);
+  }
+
   Object.assign(category, payload); //trộn dữ liệu cũ và mới
   await category.save(); //lưu lại vào db
   return category;

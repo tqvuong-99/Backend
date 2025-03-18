@@ -37,20 +37,6 @@ const getAll = async (query: any) => {
   .skip((page - 1) * limit)
   .limit(limit)
   .sort({...sortObject});
-<<<<<<< HEAD
-  //Đếm tổng số record hiện có của collection Product
-const count = await productModel.countDocuments(where);
-
-return {
-  products,
-  panigation:{
-    totalRecord: count,
-    page: +page,
-    limit: +limit
-  }
-};
-=======
-
   //Đếm tổng số record hiện có của collection Product
 const count = await productModel.countDocuments(where);
 
@@ -62,7 +48,6 @@ const count = await productModel.countDocuments(where);
       limit: +limit
     }
   };
->>>>>>> c7db69b42bd90a7518acc0ba5365412e227d111e
 }
 
 

@@ -1,6 +1,7 @@
 export interface ICategoryCreate {
     category_name: string;
     description: string;
+    slug: string;
 }
 export interface IBrandCreate {
     brand_name: string;

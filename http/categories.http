@@ -8,17 +8,15 @@ POST http://localhost:8080/api/v1/categories
 Content-Type: application/json
 
 {
-    "category_name": "Iphone14",
-    "description": "Iphone14 description"
+    "category_name": "Iphone 21"
 }
 
 ### update
-PUT http://localhost:8080/api/v1/categories/67bc7fe4b1b90d2444c5e6fe
+PUT http://localhost:8080/api/v1/categories/67d8e68cf5695eeeeb0738d3
 Content-Type: application/json
 
 {
-    "category_name": "Iphone15",
-    "description": "Iphone15 description"
+    "category_name": "Iphone 23"
 }
 ### delete
 DELETE http://localhost:8080/api/v1/categories/67bc7fc3b1b90d2444c5e6fc
