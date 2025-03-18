@@ -1,4 +1,5 @@
 import express, {Request, Response, NextFunction}  from 'express';
+import compression from 'compression';
 //Import routes
 import categoriesRouter from './routes/v1/categories.route';
 import brandsRouter from './routes/v1/brands.route';
@@ -14,7 +15,7 @@ import createError from 'http-errors';
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-
+app.use(compression());
 // -------------||BEGIN REGISTER ROUTES ||----------------
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello World');

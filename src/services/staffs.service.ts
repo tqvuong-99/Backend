@@ -59,13 +59,15 @@ const getById = async (id: mongoose.Types.ObjectId) => {
 };
 
 const create = async (payload: IStaffCreate) => {
-  //Kiểm tra xem có tồn tại sản phẩm có tên giống nhau không
+  //Kiểm tra email có tồn tại không
   const staffExist = await staffModel.findOne({
-    staff_name: payload.staff_name,
-  });
-  if (staffExist) {
-    throw createError(400, "Staff already exists");
-  }
+    email: payload.email
+})
+if (staffExist) {
+    throw createError(400, 'Email already exists');
+}
+
+console.log('<<=== 🚀 payload ===>>',payload);
   const staff = new staffModel(payload);
   await staff.save();
   // Trả về item vừa được tạo
@@ -77,13 +79,16 @@ const updateById = async (
 ) => {
   //Kiểm tra xem có tồn tại sản phẩm có id này không
   const staff = await getById(id);
-  // Kiểm tra có tên giống nhau không
-  const staffExist = await staffModel.findOne({
-    staff_name: payload.staff_name,
-  });
-  if (staffExist && staffExist._id.toString() !== id.toString()) {
-    throw createError(400, "Staff name already exists");
-  }
+//kiểm tra email có tồn tại không
+const staffExist = await staffModel.findOne({
+  email: payload.email,
+  _id: { $ne: id }
+})
+if (staffExist) {
+  throw createError(400, 'Email already exists');
+}
+
+
   // Cập nhật lại tên sản phẩm
   Object.assign(staff, payload); //trộn dữ liệu cũ và mới
   await staff.save(); //lưu lại vào db

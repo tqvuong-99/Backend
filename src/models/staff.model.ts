@@ -3,11 +3,13 @@ const staffSchema = new Schema({
     first_name: { 
         type: String,
         maxLength: 50,
+        minLength: 2,
         required: true,
     },
     last_name: { 
         type: String,
         maxLength: 50,
+        minLength: 2,
         required: true,
     },
     phone: { 
@@ -20,8 +22,13 @@ const staffSchema = new Schema({
         type: String,
         maxLength: 150,
         required: true,
-        unique: true, // duy nhất
-    },
+        unique: true, 
+        validate: {
+            validator: function (v: string) {
+              return /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(v);
+            },
+            message: (props: {value: string}) => `${props.value} is not a valid email!`,
+          },
     active:{
         type: Boolean,
         required: true,

@@ -18,6 +18,7 @@ export interface IProductCreate {
 export interface IStaffCreate {
     staff_name: string;
     description: string;
+    email:string;
 }
 export interface IOrderCreate {
     order_item_id: string;

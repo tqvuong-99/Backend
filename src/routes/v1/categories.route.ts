@@ -2,6 +2,7 @@ import express from 'express';
 import categoriesController from '../../controllers/categories.controller';
 import validateSchemaYup from '../../middlewares/validate.middleware';
 import categoryValidation from '../../validations/categoies.validation';
+
 const router = express.Router();
 
 // GET All categories: GET/api/v1/categories
