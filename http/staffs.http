@@ -1,8 +1,26 @@
-GET http://localhost:8080/api/v1/staffs
+POST http://localhost:8080/api/v1/staffs
 Content-Type: application/json
+
+{
+    "first_name": "Jasdhaisd",
+    "last_name": "asd",
+    "email": "joasda@doe.com",
+    "active": true,
+    "password": "00000000"
+}
+
+
 ###
-GET http://localhost:8080/api/v1/staffs/67bc8346e5c85af294408f60
+POST http://localhost:8080/api/v1/staffs
 Content-Type: application/json
+
+{
+    "first_name": "admin",
+    "last_name": "admin",
+    "email": "admin@gmail.com",
+    "password": "12345678",
+    "active": true
+}
 ###
 POST http://localhost:8080/api/v1/staffs
  Content-Type: application/json
@@ -22,5 +40,5 @@ PUT http://localhost:8080/api/v1/staffs/67bc8346e5c85af294408f60
 }
 
 ###
-DELETE http://localhost:8080/api/v1/staffs/67bc8346e5c85af294408f60
+DELETE http://localhost:8080/api/v1/staffs/67e0cb6fd11a0774d777176c
 Content-Type: application/json

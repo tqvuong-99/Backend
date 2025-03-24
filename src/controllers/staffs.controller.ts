@@ -34,6 +34,7 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
       httpStatus.CREATED.statusCode,
       httpStatus.CREATED.message
     );
+    console.log('<<=== 🚀 payload ===>>',payload);
   } catch (error) {
     next(error);
   }
