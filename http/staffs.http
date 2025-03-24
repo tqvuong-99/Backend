@@ -40,5 +40,5 @@ PUT http://localhost:8080/api/v1/staffs/67bc8346e5c85af294408f60
 }
 
 ###
-DELETE http://localhost:8080/api/v1/staffs/67e0cb6fd11a0774d777176c
+DELETE http://localhost:8080/api/v1/staffs/67e0d2a89295f570ab9e0ea9
 Content-Type: application/json

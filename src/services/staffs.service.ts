@@ -59,7 +59,7 @@ const create = async(payload: TStaff ) => {
         throw createError(400, 'Email already exists');
     }
    
-    console.log('<<=== 🚀 payload ===>>',payload);
+    // console.log('<<=== 🚀 payload ===>>',payload);
     const staff = new staffModel(payload);
     await staff.save();
     return staff;
