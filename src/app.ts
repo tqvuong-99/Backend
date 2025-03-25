@@ -10,6 +10,7 @@ import ordersRouter from './routes/v1/orders.route';
 import orderItemRouter from './routes/v1/order_item.route';
 import queriesRouter from './routes/v1/queries.route';
 import createError from 'http-errors';
+import authRouter from './routes/v1/auth.route';
 
 // -------------||INITIAL APP||----------------
 const app = express();
@@ -29,6 +30,7 @@ app.use('/api/v1',staffsRouter);     // router cho staffs
 app.use('/api/v1',ordersRouter);     // router cho orders
 app.use('/api/v1',orderItemRouter);     // router cho orders
 app.use('/api/v1',queriesRouter);     // router cho orders
+app.use('/api/v1/auth',authRouter);     // router cho auth
 // -------------||END REGISTER ROUTES ||----------------
 
 

@@ -1,6 +1,5 @@
 import createError from "http-errors";
 import brandModel from "../models/brand.model";
-import { IBrandCreate } from "../types/model";
 import mongoose from "mongoose";
 
 const getAll = async (query: any) => {
@@ -59,7 +58,7 @@ const getById = async (id: mongoose.Types.ObjectId) => {
   return brand;
 };
 
-const create = async (payload: IBrandCreate) => {
+const create = async (payload: any) => {
   //Kiểm tra xem có tồn tại sản phẩm có tên giống nhau không
   const brandExist = await brandModel.findOne({
     brand_name: payload.brand_name,
@@ -74,7 +73,7 @@ const create = async (payload: IBrandCreate) => {
 };
 const updateById = async (
   id: mongoose.Types.ObjectId,
-  payload: IBrandCreate
+  payload: any
 ) => {
   //Kiểm tra xem có tồn tại sản phẩm có id này không
   const brand = await getById(id);
