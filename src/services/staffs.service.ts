@@ -1,8 +1,6 @@
 import createError from 'http-errors';
-import staffModel from '../models/staff.model';
+import Staff from '../models/staff.model';
 import mongoose from 'mongoose';
-import { TStaff } from '../types/model';
-
 
 const getAll = async (query: any) => {
 
@@ -19,19 +17,23 @@ const getAll = async (query: any) => {
 
     //Tìm kiếm theo điều kiện
     let where = {};
+    //Nếu có tìm kiếm theo tên sản phẩm
+    if (query.staff_name && query.staff_name.length > 0) {
+        where = { ...where, staff_name: { $regex: query.staff_name, $options: 'i' } };
+    }
     //Nếu tìm kiếm theo danh mục
     if (query.staff && query.staff.length > 0) {
         where = { ...where, staff: query.staff };
     }
 
-  const staffs = await staffModel
+  const staffs = await Staff
   .find(where)
   .skip((page - 1) * limit)
   .limit(limit)
   .sort({...sortObject});
 
   //Đếm tổng số record hiện có của collection Staff
-  const count = await staffModel.countDocuments(where);
+  const count = await Staff.countDocuments(where);
   
   return {
     staffs,
@@ -44,23 +46,23 @@ const getAll = async (query: any) => {
 };
 
 const getById = async(id: mongoose.Types.ObjectId) => {
-    const staff = await staffModel.findById(id);
+    const staff = await Staff.findById(id);
     if (!staff) {
         throw createError(400, 'Staff not found');
     }
     return staff;
 }
-const create = async(payload: TStaff ) => {
+const create = async(payload: any) => {
     //Kiểm tra email có tồn tại không
-    const staffExist = await staffModel.findOne({
+    const staffExist = await Staff.findOne({
         email: payload.email
     })
     if (staffExist) {
         throw createError(400, 'Email already exists');
     }
    
-    // console.log('<<=== 🚀 payload ===>>',payload);
-    const staff = new staffModel(payload);
+    console.log('<<=== 🚀 payload ===>>',payload);
+    const staff = new Staff(payload);
     await staff.save();
     return staff;
 }
@@ -70,7 +72,7 @@ const updateById = async(id: mongoose.Types.ObjectId, payload: any) => {
     const staff = await getById(id);
 
     //kiểm tra email có tồn tại không
-    const staffExist = await staffModel.findOne({
+    const staffExist = await Staff.findOne({
         email: payload.email,
         _id: { $ne: id }
     })
@@ -87,7 +89,7 @@ const deleteById = async(id: mongoose.Types.ObjectId) => {
     //Kiểm tra xem sản phẩm có tồn tại không với id
     const staff = await getById(id);
     //xóa sản phẩm
-    await staffModel.deleteOne({ _id: staff._id });
+    await Staff.deleteOne({ _id: staff._id });
     return staff;
 }
 

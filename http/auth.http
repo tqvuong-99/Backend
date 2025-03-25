@@ -2,6 +2,12 @@ POST http://localhost:8080/api/v1/auth/login
 Content-Type: application/json
 
 {
-    "email": "admin@gmail.com",
-    "password": "12345678",
+    "email": "joasda@doe.com",
+    "password": "00000000"
 }
+###   
+GET http://localhost:8080/api/v1/auth/login/get-profile
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2UyNTZjZTQxZTE5OTlmMWFmZTE1ZjUiLCJlbWFpbCI6ImpvYXNkYUBkb2UuY29tIiwiaWF0IjoxNzQyODkxMjA0LCJleHAiOjE3NDI5Nzc2MDR9._UxmFrQCRg4dBQk5_jrmmRpH2nUqIGNlt3Jmd9B3yy0
+
+ 

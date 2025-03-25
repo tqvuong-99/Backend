@@ -3,6 +3,7 @@ import createError from 'http-errors';
 import jwt  from 'jsonwebtoken';
 import Staff from '../models/staff.model';
 import { env } from '../helpers/env.helper';
+import { Response } from 'express';
 
 const login = async({
     email,
@@ -59,4 +60,14 @@ const login = async({
         refreshToken
     }
 }
-export default {login};
+
+const getProfile = async(res: Response)=>{
+    const {staff} = res.locals;
+    //return without password
+    return staff;
+}
+
+export default {
+    login,
+    getProfile
+}
