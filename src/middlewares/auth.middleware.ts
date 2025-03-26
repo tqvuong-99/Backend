@@ -8,9 +8,10 @@ interface decodedJWT extends JwtPayload {
    _id?: string
  }
 
-export const authenticateToken = async (req: Request, res: Response, next: NextFunction) => {
+ export const authenticateToken = async (req: Request, res: Response, next: NextFunction) => {
   //Get the jwt token from the head
-  const authHeader = req.headers['authorization'];
+    const authHeader = req.headers['authorization'];
+   
     const token = authHeader && authHeader.split(' ')[1];
 
      //If token is not valid, respond with 401 (unauthorized)
@@ -21,32 +22,23 @@ export const authenticateToken = async (req: Request, res: Response, next: NextF
     try {
       const decoded = jwt.verify(token, env.JWT_SECRET as string) as decodedJWT;
       //try verify staff exits in database
-      const staff = await staffModel.findById(decoded._id);
+      const staff = await staffModel
+      .findOne({
+        _id: decoded._id
+      })
+      .select('-password -__v');
 
       if (!staff) {
         return next(createError(401, 'Unauthorized'));
       }
       //Đăng ký biến staff global trong app
-      res.locals = staff;
+      res.locals.staff = staff;
 
       next();
     } catch (err) {
       return next(createError(401, 'Forbidden'));
     }
 };
-
-export const authorize = (roles: string[] = []) => {
-    // roles param can be a single role string (e.g. Role.Staff or 'Staff') 
-    // or an array of roles (e.g. [Role.Admin, Role.Staff] or ['Admin', 'Staff'])
-    if (typeof roles === 'string') {
-        roles = [roles];
-    }
-
-    return (req: Request, res: Response, next: NextFunction) => {
-      if (roles.length && res.locals.staff.role && !roles.includes(res.locals.staff.role)) {
-        return next(createError(403, 'Forbidden'));
-      }
-        // authentication and authorization successful
-        next();
-    }
+export default {
+  authenticateToken
 }
